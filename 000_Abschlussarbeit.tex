@@ -1,0 +1,186 @@
+% Dokumentklasse, Papiergröße, Schriftgröße, keine Punkte am Ende der Kapitelnummerierung
+\documentclass[a4paper,12pt, numbers=noendperiod]{scrreprt}
+% Einstellung der Seitenrender, für Bindung geeignet
+\usepackage[left= 2.5cm,right = 2cm, bottom = 4 cm]{geometry}
+% Einstellung des zeilenabstandes, hier 1,5
+\usepackage[onehalfspacing]{setspace}
+% ============= Packages =============
+
+% Dokumentinformationen
+\usepackage[
+	pdftitle={Titel der Arbeit},
+	pdfsubject={},
+	pdfauthor={Jane/John Doe},
+	pdfkeywords={Vorlage, Abschlussarbeit},	
+	ngerman
+	% Links nicht einrahmen:
+	%hidelinks
+]{hyperref}
+
+
+% Standard Packages
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, subfig}
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{color}
+\usepackage{float}
+\usepackage{capt-of}
+
+% definiere Ordnernamen in dem Abbildungen abgelegt sind, dadurch ist im Folgenden nur noch ein führender Slash ('/') notwendig; Unterordner müssen weiterhin angegeben werden
+\graphicspath{{img}}
+
+%nummerierte Aufzählungen 
+\usepackage{enumitem}
+
+%Tabellen
+\usepackage{longtable}
+\usepackage{multirow}
+
+%Zum drehen von Seiten
+\usepackage{lscape}
+
+%\usepackage{chngcntr}
+%\usepackage[square]{natbib}
+
+%Eine Hilfe zur Verwaltung von Abkürzungen
+\usepackage[printonlyused]{acronym}
+
+\usepackage{mathtools}
+
+\usepackage{courier} %typewriter
+
+% zusätzliche Schriftzeichen der American Mathematical Society
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{esvect}
+
+%nicht einrücken nach Absatz
+\setlength{\parindent}{0pt}
+
+%zwei bzw drei Zitate hintereinander
+%\providecommand{\twocite}[4]{\citep[{\citealp[#1]{#2};}][#3]{#4}}
+%\providecommand{\twocites}[3]{\citep[{\citealp{#1};}][#2]{#3}}
+%\providecommand{\threecite}[6]{\citep[{\citealp[#1]{#2}; \citealp[#3]{#4};}][#5]{#6}}
+
+%Überschriftenabstände einstellen
+\renewcommand*\chapterheadstartvskip{\vspace*{-\topskip}}
+\renewcommand*\chapterheadendvskip{%
+	\vspace*{1\baselineskip plus .1\baselineskip minus .167\baselineskip}}
+
+%Definition der Gliederungstiefe
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+% ============= Python Umgebung =============
+\usepackage{pythonhighlight}
+
+% ============= Kopf- und Fußzeile =============
+\pagestyle{fancy}
+
+%
+\lhead{}
+\chead{}
+\rhead{\slshape \leftmark}
+%%
+\lfoot{}
+\cfoot{}
+\rfoot[\thepage]{\thepage}
+%%
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand*\chapterpagestyle{fancy}
+% ============= Package Einstellungen & Sonstiges ============= 
+%Besondere Trennungen
+\hyphenation{De-zi-mal-tren-nung}
+
+%römische Aufzählung
+\newcommand{\RM}[1]{\MakeUppercase{\romannummeral #1}}
+% ============= Dokumentbeginn =============
+
+\begin{document}
+
+%Seiten ohne Kopf- und Fußzeile sowie Seitenzahl
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\include{010_Titel}
+
+% \part im Inhaltsverzeichnis nicht nummerieren
+\makeatletter
+\let\partbackup\l@part
+\renewcommand*\l@part[2]{\partbackup{#1}{}}
+
+%Seitennummerierung neu beginnen
+\pagenumbering{Roman}
+
+%\pagestyle{plain}
+\pagestyle{fancy}
+
+\include{020_Erklärung}
+
+\include{030_Kurzfassung}
+
+\newpage
+
+% pagestyle für gesamtes Dokument aktivieren
+\pagestyle{fancy}
+
+%Inhaltsverzeichnis
+\addcontentsline{toc}{section}{Inhaltsverzeichnis}
+\rhead{\slshape Inhaltsverzeichnis}
+\tableofcontents
+
+
+%Abkürzungsverzeichnis
+\include{040_Abkuerungsverzeichnis}
+
+\rhead{\slshape \leftmark}
+
+%Verzeichnis aller Bilder
+\listoffigures
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
+%Verzeichnis aller Tabellen
+\listoftables
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Seitennummerierung neu beginnen
+\pagenumbering{arabic}
+
+\pagestyle{fancy}
+
+\include{050_Einleitung}
+
+\include{060_Methoden}
+
+\include{070_Ergebnisse}
+
+\include{080_Diskussion}
+
+\include{090_Zusammenfassung}
+
+%Literaturverzeichnis
+\newpage
+\addcontentsline{toc}{chapter}{Literatur}
+\bibliography{Literatur}
+\bibliographystyle{unsrtdin}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \part im Inhaltsverzeichnis nicht nummerieren
+\newpage
+\makeatletter
+\let\partbackup\l@part
+\renewcommand*\l@part[2]{\partbackup{#1}{}}
+
+%Seitennummerierung neu beginnen
+\pagenumbering{roman}
+
+\include{100_Appendix}
+
+
+\end{document}

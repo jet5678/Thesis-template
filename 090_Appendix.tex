@@ -1,0 +1,47 @@
+\clearpage
+\appendix
+\chapter{Quelltext}
+\label{Quelltext}
+
+\begin{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+from matplotlib import rc
+
+# LaTeX-rendering
+rcParams['font.family'] = 'serif'
+rc('text', usetex=True)
+
+# the plot itself from matplotlib examles
+x1 = np.linspace(0.0, 5.0)
+x2 = np.linspace(0.0, 2.0)
+
+y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
+y2 = np.cos(2 * np.pi * x2)
+
+var = 2
+fig, (ax1, ax2) = plt.subplots(var, 1, sharey = True)
+
+# plot settings
+plt.rcParams['figure.figsize'] = [5, 3.8]
+plt.subplots_adjust(left=0.11, bottom=0.13, right=0.98, top=0.94,
+		wspace=0.2, hspace=0.2)
+plt.rcParams['xtick.labelsize'] = 12
+plt.rcParams['ytick.labelsize'] = 12
+
+# Axis labels and title
+ax1.set_title(r'\textbf{{\textsf{{A tale of {} subplots}}}}'
+		.format(var))
+
+ax1.plot(x1, y1, 'o-')
+ax1.set_ylabel('Damped oscillation', fontsize = 12)
+
+ax2.plot(x2, y2, '.-')
+ax2.set_xlabel('time (s)', fontsize = 12)
+ax2.set_ylabel('Undamped', fontsize = 12)
+
+# save figure in current directory
+plt.savefig('./example.pdf')
+\end{python}
+
